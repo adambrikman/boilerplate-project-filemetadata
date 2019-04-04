@@ -7,6 +7,8 @@ var upload = multer({ dest: 'uploads/' })
 
 var app = express();
 
+var myApp = require('./myApp');
+
 app.use(cors());
 app.use('/public', express.static(process.cwd() + '/public'));
 
@@ -22,7 +24,4 @@ app.listen(process.env.PORT || 3000, function () {
   console.log('Node.js listening ...');
 });
 
-// Code snippet to find filename/time/size: https://stackoverflow.com/questions/34328846/node-multer-get-filename
-app.post('/api/fileanalyse', upload.single('upfile'), function (req, res, next) {
-  res.json({name: req.file.originalname, type: req.file.mimetype, size: req.file.size});
-})
+app.use(myApp);
